@@ -1,26 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Message from './сomponents/message/message.component'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const textForMessage = 'Равным образом новая модель организационной деятельности требуют от нас анализа модели развития. Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции играет важную роль в формировании соответствующий условий активизации.'
+
+export default () => {
+    return (
+        <div className="App">
+            <Message text={textForMessage}></Message>
+        </div>
+    );
 }
-
-export default App;
