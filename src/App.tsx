@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import Message from './сomponents/message/Message'
+import MessageList from "./сomponents/messageList/MessageList";
+import AddMessage from "./сomponents/addMessage/AddMessage";
+import {useUsers} from './hooks/useUsers';
+import {useMessages} from "./hooks/useMessages";
+import {IMessage} from "./types/Message";
 
-const textForMessage = 'Равным образом новая модель организационной деятельности требуют от нас анализа модели развития. Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции играет важную роль в формировании соответствующий условий активизации.'
+function App() {
+    // todo: Too many re-renders. React limits the number of renders to prevent an infinite loop. =(
+    // const {addUser, firstHuman} = useUsers();
+    // addUser({name: 'My name is robot', type: 'robot'})
+    // useEffect(() => {
+    //     addUser({name: 'My name is robot', type: 'robot'})
+    //     addUser({name: 'User name', type: 'human'})
+    // });
+    const {messages, addMessage } = useMessages();
 
-const App = () => {
     return (
         <div className="App">
-            <Message text={textForMessage} />
+            <MessageList messages={messages}/>
+            <AddMessage onSubmit={addMessage}/>
         </div>
     );
 }

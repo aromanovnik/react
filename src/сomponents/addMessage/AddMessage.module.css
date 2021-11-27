@@ -1,0 +1,27 @@
+.Form {
+    display: flex;
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    background-color: #c9e4ff;
+}
+
+.input {
+    border-radius: 10px;
+    line-height: 30px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 0;
+    flex-grow: 1;
+    font-size: 1.5rem;
+}
+
+.button {
+    border: 0;
+    background: #148aff;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+}
