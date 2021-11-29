@@ -3,5 +3,11 @@
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    margin: auto;
+    margin: 10px 10px 10px auto;
+}
+
+.author {
+    display: block;
+    color: #673ab7;
+    font-weight: bold;
 }
