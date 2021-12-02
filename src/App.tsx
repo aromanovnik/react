@@ -1,25 +1,29 @@
-import React from 'react';
-import './App.css';
+import React, {useEffect} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from './App.module.css';
 import MessageList from "./сomponents/messageList/MessageList";
 import AddMessage from "./сomponents/addMessage/AddMessage";
+import Chats from "./сomponents/chats/Chats";
 import {useMessages} from "./hooks/useMessages";
+import {useChats} from "./hooks/useChats";
 
 function App() {
-    // todo: Too many re-renders. React limits the number of renders to prevent an infinite loop. =(
-    //  Или хуки только в шаблонах?
-    //  useCallback выгодно только в случае передачи функции как props?
-    // const {addUser, firstHuman} = useUsers();
-    // addUser({name: 'My name is robot', type: 'robot'})
-    // useEffect(() => {
-    //     addUser({name: 'My name is robot', type: 'robot'})
-    //     addUser({name: 'User name', type: 'human'})
-    // });
-    const {messages, addMessage } = useMessages();
+    const {messages, addMessage} = useMessages();
+    const {chats, addChat} = useChats()
+
+    useEffect(() => {
+        for (let i = 0; i < 10; i++) {
+            addChat();
+        }
+    }, []);
 
     return (
-        <div className="App">
-            <MessageList messages={messages}/>
-            <AddMessage onSubmit={addMessage}/>
+        <div className={styles.App}>
+            <Chats chats={chats}/>
+            <div className={styles.right}>
+                <MessageList messages={messages}/>
+                <AddMessage onSubmit={addMessage}/>
+            </div>
         </div>
     );
 }

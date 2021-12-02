@@ -1,9 +1,18 @@
 import styles from './AddMessage.module.css';
 import {IMessage} from "../../types/Message";
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
+import {Button, Form, Stack} from "react-bootstrap";
 
 const AddMessage = ({onSubmit}: { onSubmit: (message: IMessage) => void }) => {
     const [value, setValue] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!value.length) {
+            inputRef.current?.focus();
+        }
+    }, [value, inputRef])
+
 
     const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
         setValue(event.target?.value ?? '');
@@ -17,10 +26,21 @@ const AddMessage = ({onSubmit}: { onSubmit: (message: IMessage) => void }) => {
     }
 
     return (
-        <form onSubmit={addMessage} className={styles.Form} action="">
-            <input className={styles.input} onChange={onChange} value={value} type="text"/>
-            <button className={styles.button} type="submit">Send</button>
-        </form>
+        <Form onSubmit={addMessage} className={styles.Form}>
+            <Stack direction="horizontal" gap={2}>
+                <Form.Control className="me-auto"
+                              placeholder="Write a message..."
+                              onChange={onChange}
+                              value={value}
+                              type="text"
+                              ref={inputRef}/>
+                <Button variant="secondary" type="submit">Submit</Button>
+            </Stack>
+        </Form>
+        // <form onSubmit={addMessage} className={styles.Form} action="">
+        //     <input className={styles.input} onChange={onChange} value={value} type="text"/>
+        //     <button className={styles.button} type="submit">Send</button>
+        // </form>
     );
 }
 export default AddMessage;
