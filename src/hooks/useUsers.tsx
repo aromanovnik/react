@@ -17,7 +17,6 @@ export const useUsers = (): {
                 id: (new Date()).getTime().toString(),
                 ...user,
             })
-            console.log(copyState)
             return copyState;
         })
     }, []);

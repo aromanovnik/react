@@ -1,0 +1,8 @@
+.Chats {
+    width: 300px;
+    border-right: 1px solid #ced4da;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
