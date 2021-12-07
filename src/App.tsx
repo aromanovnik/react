@@ -1,31 +1,32 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './App.module.css';
-import MessageList from "./сomponents/messageList/MessageList";
-import AddMessage from "./сomponents/addMessage/AddMessage";
-import Chats from "./сomponents/chats/Chats";
-import {useMessages} from "./hooks/useMessages";
-import {useChats} from "./hooks/useChats";
+import {
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
+import {User, Home, Chat} from "./routes";
+import {Container, Navbar} from "react-bootstrap";
 
 function App() {
-    const {messages, addMessage} = useMessages();
-    const {chats, addChat} = useChats()
-
-    useEffect(() => {
-        for (let i = 0; i < 10; i++) {
-            addChat();
-        }
-    }, []);
 
     return (
-        <div className={styles.App}>
-            <Chats chats={chats}/>
-            <div className={styles.right}>
-                <MessageList messages={messages}/>
-                <AddMessage onSubmit={addMessage}/>
-            </div>
+        <div>
+            <Navbar bg="light" expand="lg">
+                <Container>
+                    <Link to="/">Home</Link>
+                    <Link to="/chat">Chats</Link>
+                    <Link to="/user">User</Link>
+                </Container>
+            </Navbar>
+
+            <Routes>
+                <Route path="/user" element={<User/>}/>
+                <Route path="/chat" element={<Chat/>}/>
+                <Route path="/" element={<Home/>}/>
+            </Routes>
         </div>
-    );
+    )
 }
 
 export default App;
