@@ -3,6 +3,7 @@ import {IChats} from "../types/Chats";
 
 export const useChats = (): {
     chats: IChats[];
+    setChats: (chats: IChats[]) => void;
     addChat: () => void;
 } => {
     const [chats, setChats] = useState<IChats[]>([]);
@@ -12,15 +13,15 @@ export const useChats = (): {
             setChats((prev) => {
                 const chatCopy = [...prev];
                 chatCopy.push({
-                    id: (new Date()).getTime().toString(),
+                    id: (new Date()).getTime().toString() + chatCopy.length,
                     name: `Chat ${prev.length}`,
                 });
-
                 return chatCopy;
             });
         }, [setChats])
     return {
         chats,
+        setChats,
         addChat
     }
 }
