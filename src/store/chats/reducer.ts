@@ -1,5 +1,5 @@
 import {IChatsStore} from "../../types/Chats";
-import {ADD_CHAT, DELETE_CHAT, EDIT_CHAT} from "./actions";
+import {CREATE_CHAT, DELETE_CHAT, EDIT_CHAT} from "./actions";
 
 const initialState: IChatsStore = {
     chats: [],
@@ -9,7 +9,7 @@ const initialState: IChatsStore = {
 
 export const chatsReducer = (state = initialState, action: any): IChatsStore => {
     switch (action.type) {
-        case ADD_CHAT: {
+        case CREATE_CHAT: {
             return {
                 ...state,
                 chats: [
@@ -19,7 +19,7 @@ export const chatsReducer = (state = initialState, action: any): IChatsStore => 
             }
         }
         case EDIT_CHAT: {
-            const index = state.chats.findIndex((el) => action.payload.id);
+            const index = state.chats.findIndex((el) => action.payload.id === el.id);
             if (index < 0) {
                 return state;
             }

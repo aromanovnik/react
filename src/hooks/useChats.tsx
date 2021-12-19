@@ -1,5 +1,6 @@
 import {useCallback, useState} from "react";
 import {IChats} from "../types/Chats";
+import {nanoid} from "nanoid";
 
 export const useChats = (): {
     chats: IChats[];
@@ -13,7 +14,7 @@ export const useChats = (): {
             setChats((prev) => {
                 const chatCopy = [...prev];
                 chatCopy.push({
-                    id: (new Date()).getTime().toString() + chatCopy.length,
+                    id: nanoid(),
                     name: `Chat ${prev.length}`,
                 });
                 return chatCopy;

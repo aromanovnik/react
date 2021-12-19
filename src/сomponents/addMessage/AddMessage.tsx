@@ -3,7 +3,7 @@ import {IMessage} from "../../types/Message";
 import {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Form, Stack} from "react-bootstrap";
 
-const AddMessage = ({onSubmit}: { onSubmit: (message: IMessage) => void }) => {
+const AddMessage = ({onSubmit, chatId}: { onSubmit: (message: IMessage) => void; chatId: string; }) => {
     const [value, setValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -21,7 +21,7 @@ const AddMessage = ({onSubmit}: { onSubmit: (message: IMessage) => void }) => {
 
     const addMessage = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        onSubmit({text: value, author: 'User'});
+        onSubmit({text: value, author: 'User', chadId: chatId});
         setValue('');
     }
 

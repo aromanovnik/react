@@ -5,6 +5,7 @@ export interface IMessage {
     text: string;
     // author: IUser;
     author: string | 'robot';
+    chadId: string;
 }
 
 export interface IMessages {

@@ -15,19 +15,19 @@ export const Chat = () => {
     const [chat, setChat] = useState<IChats | undefined>(undefined);
     const {chatId} = useParams();
 
-    useEffect(() => {
-        const chats$ = chatsService.chats$.subscribe((chats) => {
-            setChats(chats);
-            setChat(chats.find(e => e.id === chatId));
-        })
-
-        return chats$?.unsubscribe();
-    })
+    // useEffect(() => {
+    //     const chats$ = chatsService.chats$.subscribe((chats) => {
+    //         setChats(chats);
+    //         setChat(chats.find(e => e.id === chatId));
+    //     })
+    //
+    //     return chats$?.unsubscribe();
+    // })
 
     return (
         <div className={styles.Chats}>
             <Chats chats={chats}/>
-            {chatId && <div className={styles.right}><MessageList messages={messages}/><AddMessage onSubmit={addMessage}/></div>}
+            {chatId && <div className={styles.right}><MessageList messages={messages}/><AddMessage chatId={chatId} onSubmit={addMessage}/></div>}
             {!chatId && <div className={styles.right}><h2>Choose a chat!</h2></div>}
         </div>
     );

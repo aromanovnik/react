@@ -1,12 +1,12 @@
 import {IChats} from "../../types/Chats";
 
-export const ADD_CHAT = '[CHATS PAGE] ADD CHAT';
+export const CREATE_CHAT = '[CHATS PAGE] CREATE CHAT';
 export const EDIT_CHAT = '[CHATS PAGE] EDIT CHAT';
 export const DELETE_CHAT = '[CHATS PAGE] DELETE CHAT';
 
 export const createChat = (chat: IChats): { type: string; payload: IChats } => {
     return {
-        type: ADD_CHAT,
+        type: CREATE_CHAT,
         payload: chat,
     }
 }

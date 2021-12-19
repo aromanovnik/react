@@ -1,42 +1,61 @@
-import {IChatsStore} from "../../types/Chats";
-import {ADD_CHAT, DELETE_CHAT, EDIT_CHAT} from "./actions";
+import {ADD_MESSAGE, DELETE_MESSAGE, EDIT_MESSAGE} from "./actions";
+import {IMessageStore} from "../../types/Message";
 
-const initialState: IChatsStore = {
-    chats: [],
+const initialState: IMessageStore = {
+    messages: {},
     error: null,
     isLoading: false,
 }
 
-export const chatsReducer = (state = initialState, action: any): IChatsStore => {
+export const messagesReducer = (state = initialState, action: any): IMessageStore => {
     switch (action.type) {
-        case ADD_CHAT: {
+        case ADD_MESSAGE: {
+            if (!state.messages[action.payload.id]) {
+                return state;
+            }
+
+            const newMessages = {...state.messages}
+            newMessages[action.payload.id] = [
+                ...(newMessages[action.payload.id] || []),
+                action.payload,
+            ]
+
             return {
                 ...state,
-                chats: [
-                    ...state.chats,
-                    action.payload,
-                ]
+                messages: newMessages,
             }
         }
-        case EDIT_CHAT: {
-            const index = state.chats.findIndex((el) => action.payload.id);
+        case EDIT_MESSAGE: {
+            if (!state.messages[action.payload.id]) {
+                return state;
+            }
+
+            const index = state.messages[action.payload.id].findIndex((el) => action.payload.id === el.id);
             if (index < 0) {
                 return state;
             }
 
-            const newState = state;
-            newState.chats[index] = {
-                ...newState.chats[index],
+            const newMessages = {...state.messages}
+            newMessages[action.payload.id][index] = {
+                ...newMessages[action.payload.id][index],
                 ...action.payload,
             }
 
-            return newState
-        }
-        case DELETE_CHAT: {
-            const newChats = state.chats.filter((el) => el.id !== action.payload)
             return {
                 ...state,
-                chats: newChats,
+                messages: newMessages,
+            }
+        }
+        case DELETE_MESSAGE: {
+            if (!state.messages[action.payload]) {
+                return state;
+            }
+
+            const newMessages = {...state.messages}
+            newMessages[action.payload] = newMessages[action.payload].filter((el) => el.id !== action.payload)
+            return {
+                ...state,
+                messages: newMessages,
             }
         }
         default: {

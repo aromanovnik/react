@@ -33,6 +33,7 @@ export const useMessages = (): {
             addMessage({
                 text: 'Hi 👋! My name is robot.',
                 author: 'robot',
+                chadId: messages[messages.length - 1].chadId,
             });
         }, 1500);
 

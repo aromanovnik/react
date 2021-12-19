@@ -17,6 +17,7 @@ export const editMessage = (message: IMessage): { type: string; payload: IMessag
         payload: message,
     }
 }
+
 export const deleteMessage = (messageId: IMessage["id"]): { type: string; payload: IMessage["id"] } => {
     return {
         type: DELETE_MESSAGE,
