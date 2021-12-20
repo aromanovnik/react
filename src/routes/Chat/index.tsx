@@ -11,7 +11,7 @@ import {IChats} from "../../types/Chats";
 
 export const Chat = () => {
     const {messages, addMessage} = useMessages();
-    const {chats, setChats} = useChats()
+    const {chats, addChat} = useChats()
     const [chat, setChat] = useState<IChats | undefined>(undefined);
     const {chatId} = useParams();
 
@@ -26,8 +26,12 @@ export const Chat = () => {
 
     return (
         <div className={styles.Chats}>
-            <Chats chats={chats}/>
-            {chatId && <div className={styles.right}><MessageList messages={messages}/><AddMessage chatId={chatId} onSubmit={addMessage}/></div>}
+            <Chats chats={chats} addChat={addChat}/>
+            {chatId &&
+                <div className={styles.right}><MessageList messages={messages}/>
+                    <AddMessage chatId={chatId} onSubmit={addMessage}/>
+                </div>
+            }
             {!chatId && <div className={styles.right}><h2>Choose a chat!</h2></div>}
         </div>
     );
