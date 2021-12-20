@@ -5,7 +5,7 @@ export interface IMessage {
     text: string;
     // author: IUser;
     author: string | 'robot';
-    chadId: string;
+    chatId?: string;
 }
 
 export interface IMessages {

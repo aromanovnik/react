@@ -10,15 +10,18 @@ const initialState: IMessageStore = {
 export const messagesReducer = (state = initialState, action: any): IMessageStore => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            if (!state.messages[action.payload.id]) {
-                return state;
-            }
+            console.log(action.payload)
+            // if (!state.messages[action.payload.chatId]) {
+            //     return state;
+            // }
 
             const newMessages = {...state.messages}
-            newMessages[action.payload.id] = [
-                ...(newMessages[action.payload.id] || []),
+            newMessages[action.payload.chatId] = [
+                ...(newMessages[action.payload.chatId] || []),
                 action.payload,
             ]
+
+            console.log(newMessages);
 
             return {
                 ...state,
@@ -26,17 +29,17 @@ export const messagesReducer = (state = initialState, action: any): IMessageStor
             }
         }
         case EDIT_MESSAGE: {
-            if (!state.messages[action.payload.id]) {
+            if (!state.messages[action.payload.chatId]) {
                 return state;
             }
 
-            const index = state.messages[action.payload.id].findIndex((el) => action.payload.id === el.id);
+            const index = state.messages[action.payload.chatId].findIndex((el) => action.payload.id === el.id);
             if (index < 0) {
                 return state;
             }
 
             const newMessages = {...state.messages}
-            newMessages[action.payload.id][index] = {
+            newMessages[action.payload.chatId][index] = {
                 ...newMessages[action.payload.id][index],
                 ...action.payload,
             }

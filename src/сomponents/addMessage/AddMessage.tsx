@@ -21,7 +21,7 @@ const AddMessage = ({onSubmit, chatId}: { onSubmit: (message: IMessage) => void;
 
     const addMessage = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        onSubmit({text: value, author: 'User', chadId: chatId});
+        onSubmit({text: value, author: 'User', chatId: chatId});
         setValue('');
     }
 
