@@ -6,7 +6,6 @@ import MessageList from "../../сomponents/messageList/MessageList";
 import AddMessage from "../../сomponents/addMessage/AddMessage";
 import styles from './Chats.module.css'
 import {useParams} from "react-router-dom";
-import {IMessage} from "../../types/Message";
 
 export const Chat = () => {
     const {chats, addChat} = useChats()

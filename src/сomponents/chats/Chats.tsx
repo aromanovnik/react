@@ -24,7 +24,7 @@ const Chats = ({chats, addChat}: { chats: IChats[], addChat: (chat: IChats) => v
     return (
         <div className={styles.Chats}>
             <ListGroup>
-                {chats.map(chat => <Link to={'/chat/' + chat.id}><ListGroup.Item
+                {chats.map(chat => <Link to={'/chat/' + chat.id} key={chat.id}><ListGroup.Item
                     key={chat.id}>{chat.name}</ListGroup.Item> </Link>)}
             </ListGroup>
 

@@ -33,13 +33,9 @@ export const useMessages = (): {
 
     // Robot response
     useEffect(() => {
-        let mess: IMessage[] = [];
-       Object.values(messages).forEach(el => {
-           mess = [
-               ...mess,
-               ...el,
-           ]
-        });
+        const mess: IMessage[] = Object.values(messages).reduce((acc, el) => {
+            return [...acc, ...el];
+        }, []);
         // console.log(_messages, messages);
         if (!mess.length || mess[mess.length - 1]?.author === 'robot') {
             return;
