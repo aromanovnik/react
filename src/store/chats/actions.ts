@@ -1,23 +1,23 @@
-import {IChat} from "./models";
+import {IChats} from "../../types/Chats";
 
-export const ADD_CHAT = '[CHATS PAGE] ADD CHAT';
+export const CREATE_CHAT = '[CHATS PAGE] CREATE CHAT';
 export const EDIT_CHAT = '[CHATS PAGE] EDIT CHAT';
 export const DELETE_CHAT = '[CHATS PAGE] DELETE CHAT';
 
-export const createChat = (chat: IChat): { type: string; payload: IChat } => {
+export const createChat = (chat: IChats): { type: string; payload: IChats } => {
     return {
-        type: ADD_CHAT,
+        type: CREATE_CHAT,
         payload: chat,
     }
 }
 
-export const editChat = (chat: IChat): { type: string; payload: IChat } => {
+export const editChat = (chat: IChats): { type: string; payload: IChats } => {
     return {
         type: EDIT_CHAT,
         payload: chat,
     }
 }
-export const deleteChat = (chatId: IChat["id"]): { type: string; payload: IChat["id"] } => {
+export const deleteChat = (chatId: IChats["id"]): { type: string; payload: IChats["id"] } => {
     return {
         type: DELETE_CHAT,
         payload: chatId,

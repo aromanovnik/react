@@ -1,50 +1,63 @@
-import {useCallback, useEffect, useState} from 'react';
-import {IMessage} from "../types/Message";
+import {useEffect} from 'react';
+import {IMessage, IMessages} from "../types/Message";
+import {useDispatch, useSelector} from "react-redux";
+import {getMessages} from "../store/messages/selectors";
+import * as Actions from "../store/messages/actions";
+import {nanoid} from "nanoid";
 
 export const useMessages = (): {
-    messages: IMessage[],
+    messages: IMessages,
     addMessage: (message: IMessage) => void;
-    removeMessage: (id: string) => () => void;
+    editMessage: (message: IMessage) => void;
+    deleteMessage: (messageId: string) => void;
 } => {
-    const [messages, setMessages] = useState<IMessage[]>([]);
+    const dispatch = useDispatch();
+    // const messages = useSelector((state: IStore) => getMessages(state, chatId));
+    const messages = useSelector(getMessages);
 
-    const addMessage = useCallback((message: IMessage) => {
-        setMessages((state) => {
-            const copyState = [...state];
-            copyState.push({
-                id: (new Date()).getTime().toString(),
-                ...message,
-            })
-            return copyState;
-        })
-    }, []);
+    const addMessage = (mess: IMessage) => {
+        dispatch(Actions.addMessage({
+            id: nanoid(),
+            ...mess,
+        }))
+    }
 
+    const editMessage = (chat: IMessage): void => {
+        dispatch(Actions.editMessage(chat))
+    }
 
-    const removeMessage = useCallback((id: string) => () => {
-        setMessages((state) => state.filter(m => m.id !== id))
-    }, []);
+    const deleteMessage = (messageId: string): void => {
+        dispatch(Actions.deleteMessage(messageId))
+    }
+
 
     // Robot response
     useEffect(() => {
-        if (!messages.length || messages[messages.length - 1]?.author === 'robot') {
+        const mess: IMessage[] = Object.values(messages).reduce((acc, el) => {
+            return [...acc, ...el];
+        }, []);
+        // console.log(_messages, messages);
+        if (!mess.length || mess[mess.length - 1]?.author === 'robot') {
             return;
         }
         const timerId = setTimeout(() => {
             addMessage({
                 text: 'Hi 👋! My name is robot.',
                 author: 'robot',
+                chatId: mess[mess.length - 1].chatId,
             });
         }, 1500);
 
         return () => {
             clearTimeout(timerId);
         };
-    }, [messages, addMessage])
+    }, [messages])
 
 
     return {
         messages,
         addMessage,
-        removeMessage,
+        editMessage,
+        deleteMessage,
     }
 }

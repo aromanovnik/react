@@ -1,27 +1,37 @@
-import {useCallback, useState} from "react";
 import {IChats} from "../types/Chats";
+import {nanoid} from "nanoid";
+import {useDispatch, useSelector} from "react-redux";
+import {getChats} from "../store/chats/selectors";
+import * as Actions from "../store/chats/actions";
 
 export const useChats = (): {
     chats: IChats[];
-    setChats: (chats: IChats[]) => void;
-    addChat: () => void;
+    addChat: (chat: IChats) => void;
+    editChat: (chat: IChats) => void;
+    deleteChat: (chatId: string) => void;
 } => {
-    const [chats, setChats] = useState<IChats[]>([]);
+    const dispatch = useDispatch();
+    const chats = useSelector(getChats)
 
-    const addChat = useCallback(
-        () => {
-            setChats((prev) => {
-                const chatCopy = [...prev];
-                chatCopy.push({
-                    id: (new Date()).getTime().toString() + chatCopy.length,
-                    name: `Chat ${prev.length}`,
-                });
-                return chatCopy;
-            });
-        }, [setChats])
+    const addChat = (chat: IChats): void => {
+        dispatch(Actions.createChat({
+            ...chat,
+            id: nanoid(),
+        }))
+    }
+
+    const editChat = (chat: IChats): void => {
+        dispatch(Actions.editChat(chat))
+    }
+
+    const deleteChat = (chatId: string): void => {
+        dispatch(Actions.deleteChat(chatId))
+    }
+
     return {
         chats,
-        setChats,
-        addChat
+        addChat,
+        editChat,
+        deleteChat,
     }
 }
